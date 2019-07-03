@@ -1,13 +1,13 @@
-[sources.fortune]
+[sources.service]
   type = "tcp"
   address = "0.0.0.0:1337"
 
 [sinks.clickhouse]
   type = "http"
-  inputs = ["fortune"]
+  inputs = ["service"]
   encoding = "ndjson"
-  uri = "http://clickhouse-server:8123/?query=INSERT%20INTO%20fortune_log%20FORMAT%20JSONEachRow"
+  uri = "http://clickhouse-server:8123/?query=INSERT%20INTO%20service_log%20FORMAT%20JSONEachRow"
 
 [sinks.console]
   type = "console"
-  inputs = ["fortune"]
+  inputs = ["service"]
