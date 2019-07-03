@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  fortune:
+  service:
     build: ./service
     depends_on:
       - vector
@@ -36,5 +36,5 @@ services:
     image: yandex/clickhouse-client:19
     depends_on:
       - clickhouse-server
-      - fortune
+      - service
     command: ["--host", "clickhouse-server"]
