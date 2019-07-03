@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  fortune:
+    build: ./service
+    depends_on:
+      - vector
+    environment:
+      VECTOR_HOST: vector
+      VECTOR_PORT: 1337
+
+  vector:
+    image: timberio/vector:0.3.0
+    depends_on:
+      - clickhouse-server
+      - init-clickhouse
+    volumes:
+      - ./vector.toml:/etc/vector/vector.toml
+    command: ["vector", "--config", "/etc/vector/vector.toml"]
+
+  init-clickhouse:
+    image: yandex/clickhouse-client:19
+    depends_on:
+      - clickhouse-server
+    volumes:
+      - ./init-clickhouse.sql:/init-clickhouse.sql
+    entrypoint:
+      - bash
+      - -c
+      - clickhouse-client --host clickhouse-server -mn < /init-clickhouse.sql
+
+  clickhouse-server:
+    image: yandex/clickhouse-server:19
+
+  clickhouse-client:
+    image: yandex/clickhouse-client:19
+    depends_on:
+      - clickhouse-server
+      - fortune
+    command: ["--host", "clickhouse-server"]
