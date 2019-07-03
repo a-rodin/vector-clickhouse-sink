@@ -14,7 +14,7 @@ docker-compose up -d
 
 It would start the following services:
 
-* `service` - a service that generates text using [fortune](https://wiki.debian.org/fortune) and writes it to Vector using a TCP socket;
+* `service` - a service that generates text using [fortune](https://en.wikipedia.org/wiki/Fortune_(Unix)) and writes it to Vector using a TCP socket;
 * `vector` - Vector configured to use a TCP source and HTTP/console sinks, the config file is in [vector.toml](vector.toml).
 * `clickhouse-server` - ClickHouse;
 * `init-clickhouse` - a service that creates a table `service_log` in ClickHouse using [init-clickhouse.sql](init-clickhouse.sql) file.
